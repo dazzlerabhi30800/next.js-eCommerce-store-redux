@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  button {
+    @apply transition ease-in-out duration-200 hover:brightness-125 active:translate-x-1 active:translate-y-1;
+  }
+}
 
 body {
   background: #121212;
