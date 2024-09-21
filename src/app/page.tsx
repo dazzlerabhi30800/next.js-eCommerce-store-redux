@@ -1,8 +1,12 @@
-import Todos from "@/Components/Todos";
+import Header from "@/Components/Header";
+import Products from "@/Components/Products";
+import styles from './styles.module.css';
+
 export default function Home() {
   return (
-    <main className="flex justify-center items-center min-h-screen">
-      <Todos />
+    <main className={ `${styles.bgColor} min-h-screen` }>
+      <Header />
+      <Products />
     </main>
   );
 }
