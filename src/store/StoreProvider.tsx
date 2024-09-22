@@ -8,10 +8,14 @@ const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   const storeRef = useRef<AppStore>();
   if (!storeRef.current) {
     storeRef.current = makeStore();
+    // storeRef.current = makeConfigureStore();
   }
   return (
     <Provider store={storeRef.current}>
       <PersistGate persistor={persistor}>{children}</PersistGate>
+      {/* <PersistGate persistor={storeRef.current._persistor}>
+        {children}
+      </PersistGate> */}
     </Provider>
   );
 };

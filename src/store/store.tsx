@@ -7,6 +7,7 @@ import {
 import { persistStore, persistReducer } from "redux-persist";
 import { thunk } from "redux-thunk";
 import storageEngine from "./storage";
+import storage from "redux-persist/lib/storage";
 
 export type todo = {
   id: string;
@@ -75,10 +76,11 @@ const productSlice = createSlice({
 
 const persistConfig = {
   key: "productSlice",
-  blacklist: ["loading"],
-  whiteList: ["products"],
-  // storage,
-  storage: storageEngine,
+  blacklist: ["todos"],
+  whiteList: ["loading", "products"],
+  storage,
+  // storage: storageEngine,
+
   // timeout: 1000,
 };
 
@@ -87,12 +89,17 @@ export const makeStore = () => {
     reducer: {
       todoReducer: persistReducer(persistConfig, productSlice.reducer),
     },
-    middleware: () => new Tuple(thunk),
-    // middleware: (getDefaultMiddleware) =>
-    //   getDefaultMiddleware({
-    //     serializableCheck: false,
-    //   }),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+        thunk: true,
+      }),
   });
+  // // middleware: () => new Tuple(thunk),
+  // middleware: [thunk],
+  // //   middleware: (getDefaultMiddleware) =>
+  // //     getDefaultMiddleware({ serializableCheck: false }),
+  // });
 };
 
 export const persistor = persistStore(makeStore());
