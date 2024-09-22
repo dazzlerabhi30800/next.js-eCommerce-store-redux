@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import styles from '@/app/styles.module.css';
+import styles from "@/app/styles.module.css";
 
 const Header = () => {
   const path = usePathname();
@@ -12,7 +12,9 @@ const Header = () => {
       <ul className={`${styles.flexRow} gap-10 font-medium`}>
         <li>
           <Link
-            className={`${path === "/" && "text-green-300 italic"} hover:text-green-300`}
+            className={`${
+              path === "/" && "text-green-500 italic"
+            } hover:text-green-600`}
             href="/"
           >
             Home
@@ -20,7 +22,9 @@ const Header = () => {
         </li>
         <li>
           <Link
-            className={`${path === "/cart" && "text-green-300 italic"} hover:text-green-300`}
+            className={`${
+              path === "/cart" && "text-green-500 italic"
+            } hover:text-green-600`}
             href="/cart"
           >
             Cart

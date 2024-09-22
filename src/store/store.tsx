@@ -1,111 +1,66 @@
-import {
-  configureStore,
-  createAsyncThunk,
-  createSlice,
-  Tuple,
-} from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from "redux-persist";
-import { thunk } from "redux-thunk";
-import storageEngine from "./storage";
-import storage from "redux-persist/lib/storage";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-export type todo = {
-  id: string;
-  todo: string;
-};
-
-interface todoInterface {
+interface ProductState {
   loading: boolean;
-  todos: Array<todo>;
-  products: Array<any>;
+  products: any[];
+  todo: string;
+  setProducts: () => void;
+  addToCart: (id: number) => void;
+  setTodo: (todo: string) => void;
 }
 
-const initialState: todoInterface = {
-  loading: false,
-  todos: [],
-  products: [],
-};
-
-export const fetchProducts = createAsyncThunk(
-  "/products/fetchProducts/",
-  async () => {
-    const data = await fetch("https://dummyjson.com/products");
-    const response = await data.json();
-    return response;
-  }
-);
-
-const productSlice = createSlice({
-  name: "todos",
-  initialState,
-  reducers: {
-    addToCart: (state, action: { payload: number }) => {
-      state.products = state.products.map((item: any) => {
-        if (action.payload === item.id) {
-          return { ...item, quantity: item.quantity + 1 };
+export const useProductStore = create<ProductState>()(
+  persist(
+    (set, get) => ({
+      loading: false,
+      todo: "status",
+      products: [],
+      setTodo: (todo) => set({ todo }),
+      setProducts: async () => {
+        const products = JSON.parse(
+          sessionStorage.getItem("products") || "null"
+        );
+        set({ loading: true });
+        if (products) {
+          console.log("got it");
+          set({ products: products.state.products, loading: false });
+          return;
         }
-        return item;
-      });
-    },
-    removeCart: (state, action: { payload: number }) => {
-      state.products = state.products.map((item: any) => {
-        if (action.payload === item.id) {
-          return {
-            ...item,
-            quantity: item.quantity - 1 <= 0 ? 0 : item.quantity - 1,
-          };
+        const data = await fetch("https://dummyjson.com/products");
+        const response = await data.json();
+        if (response) {
+          set({
+            products: response.products.map((item: any) => ({
+              ...item,
+              quantity: 0,
+            })),
+            loading: false,
+          });
         }
-        return item;
-      });
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchProducts.pending, (state) => {
-      state.loading = true;
-    });
-
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.loading = false;
-      state.products = action.payload.products?.map((item: any) => ({
-        ...item,
-        quantity: 0,
-      }));
-    });
-  },
-});
-
-const persistConfig = {
-  key: "productSlice",
-  blacklist: ["todos"],
-  whiteList: ["loading", "products"],
-  storage,
-  // storage: storageEngine,
-
-  // timeout: 1000,
-};
-
-export const makeStore = () => {
-  return configureStore({
-    reducer: {
-      todoReducer: persistReducer(persistConfig, productSlice.reducer),
-    },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: false,
-        thunk: true,
+      },
+      addToCart: (id) => {
+        if (!id) return;
+        const oldProducts = get().products;
+        set({
+          products: oldProducts.map((item) => {
+            if (item.id === id) {
+              return { ...item, quantity: item.quantity + 1 };
+            }
+            return item;
+          }),
+        });
+      },
+    }),
+    {
+      name: "products",
+      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => ({
+        products: state.products,
+        setProducts: state.setProducts,
+        addToCart: state.addToCart,
+        todo: state.todo,
       }),
-  });
-  // // middleware: () => new Tuple(thunk),
-  // middleware: [thunk],
-  // //   middleware: (getDefaultMiddleware) =>
-  // //     getDefaultMiddleware({ serializableCheck: false }),
-  // });
-};
-
-export const persistor = persistStore(makeStore());
-
-export const { addToCart, removeCart } = productSlice.actions;
-
-export type AppStore = ReturnType<typeof makeStore>;
-export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+    }
+  )
+);
