@@ -5,6 +5,8 @@ import { useProductStore } from "@/store/store";
 
 const ProductComp = ({
   data: { id, title, price, discountPercentage, thumbnail, quantity },
+}: {
+  data: any;
 }) => {
   const addToCart = useProductStore((state) => state.addToCart);
   return (

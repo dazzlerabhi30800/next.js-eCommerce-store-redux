@@ -1,33 +1,38 @@
+import { fetchCategory } from "@/utils/FetchFuncs";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface ProductState {
   loading: boolean;
   products: any[];
-  todo: string;
+  showSidebar: boolean;
+  categories: category[];
   setProducts: () => void;
+  setCategories: () => void;
+  setSidebar: () => void;
   addToCart: (id: number) => void;
-  setTodo: (todo: string) => void;
+  fetchNewProducts: (slug: string) => void;
 }
+
+export type category = {
+  slug: string;
+  name: string;
+  url: string;
+};
 
 export const useProductStore = create<ProductState>()(
   persist(
     (set, get) => ({
       loading: false,
-      todo: "status",
+      showSidebar: false,
+      categories: [],
       products: [],
-      setTodo: (todo) => set({ todo }),
+      setSidebar: () => {
+        const sideState = get().showSidebar;
+        set({ showSidebar: !sideState });
+      },
       setProducts: async () => {
-        const products = JSON.parse(
-          sessionStorage.getItem("products") || "null"
-        );
-        set({ loading: true });
-        if (products) {
-          console.log("got it");
-          set({ products: products.state.products, loading: false });
-          return;
-        }
-        const data = await fetch("https://dummyjson.com/products");
+        const data = await fetch(`https://dummyjson.com/products`);
         const response = await data.json();
         if (response) {
           set({
@@ -38,6 +43,10 @@ export const useProductStore = create<ProductState>()(
             loading: false,
           });
         }
+      },
+      setCategories: async () => {
+        const categories = await fetchCategory();
+        set({ categories });
       },
       addToCart: (id) => {
         if (!id) return;
@@ -51,15 +60,30 @@ export const useProductStore = create<ProductState>()(
           }),
         });
       },
+      fetchNewProducts: async (slug) => {
+        set({ loading: true });
+        const data = await fetch(
+          `https://dummyjson.com/products/category/${slug}`
+        );
+        const response = await data.json();
+        if (response) {
+          set({
+            products: response.products?.map((item: any) => ({
+              ...item,
+              quantity: 0,
+            })),
+            loading: false,
+            showSidebar: false,
+          });
+        }
+      },
     }),
     {
       name: "products",
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
         products: state.products,
-        setProducts: state.setProducts,
-        addToCart: state.addToCart,
-        todo: state.todo,
+        categories: state.categories,
       }),
     }
   )

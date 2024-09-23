@@ -3,12 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-  button {
-    @apply transition ease-in-out duration-200 hover:brightness-125 active:translate-x-1 active:translate-y-1;
+  .transitionL {
+    @apply transition ease-in-out duration-300;
   }
 }
 
 body {
   color: #121212;
   background: #fff;
+  position: relative;
+}
+
+aside::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background: #464455;
+  border-radius: 30px;
 }

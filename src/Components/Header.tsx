@@ -7,7 +7,7 @@ import styles from "@/app/styles.module.css";
 const Header = () => {
   const path = usePathname();
   return (
-    <header className={`${styles.flexBetween} p-5`}>
+    <header className={`${styles.flexBetween} p-4`}>
       <h1 className="uppercase text-3xl font-bold">da</h1>
       <ul className={`${styles.flexRow} gap-10 font-medium`}>
         <li>
