@@ -44,15 +44,17 @@ export const useProductStore = create<ProductState>()(
       setProductLoading: (value) => set({ loading: value }),
       setProductAmount: () => {
         set({ productLoading: true });
-        let cart = get().cart.filter((item) => item.quantity > 0);
+        let cart = get().cart;
         let products = get().products;
+        console.log(cart);
         if (cart.length < 1) {
           setTimeout(() => {
+            console.log("hello");
             set({
               productLoading: false,
               products: products.map((item) => ({ ...item, quantity: 0 })),
             });
-          }, 1000);
+          }, 500);
           return;
         }
         // console.log(cart);
@@ -67,11 +69,11 @@ export const useProductStore = create<ProductState>()(
           set({
             products,
             productLoading: false,
-            // cart: cart.filter((item) => item.quantity > 0),
           });
         }, 1000);
       },
       setProducts: async () => {
+        set({ loading: true });
         const data = await fetch(`https://dummyjson.com/products`);
         const response = await data.json();
         if (response) {
@@ -132,7 +134,6 @@ export const useProductStore = create<ProductState>()(
           }
           return item;
         });
-        let filteredCart = newCart.filter((item) => item.quantity > 0);
         set({
           cart: newCart,
         });
@@ -162,7 +163,7 @@ export const useProductStore = create<ProductState>()(
       name: "products",
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
-        cart: state.cart,
+        cart: state.cart.filter((item: any) => item.quantity > 0),
         categories: state.categories,
         user: state.user,
       }),

@@ -2,6 +2,7 @@
 import { useProductStore } from "@/store/store";
 import React, { useEffect } from "react";
 import ProductComp from "./ProductComp";
+import Loader from "@/utils/Loader";
 
 const Products = () => {
   const loading = useProductStore((state) => state.loading);
@@ -17,10 +18,10 @@ const Products = () => {
     setProductAmount();
   }, [cart]);
   return (
-    <div className="h-full flex-1">
+    <div className="h-full flex-1 relative">
       <section className="grid grid-cols-3 h-fit pb-5 gap-x-10 gap-y-16 px-10">
         {loading ? (
-          <h1 className="text-xl text-red-500 mx-auto font-bold">Loading...</h1>
+          <Loader />
         ) : (
           products?.map((product) => (
             <ProductComp key={product?.id} data={product} />
