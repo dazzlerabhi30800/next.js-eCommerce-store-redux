@@ -3,11 +3,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import styles from "@/app/styles.module.css";
+import { RiShoppingCartLine } from "react-icons/ri";
+import { useProductStore } from "@/store/store";
 
 const Header = () => {
   const path = usePathname();
+  const cart = useProductStore((state) => state.cart).filter(
+    (item) => item.quantity > 0
+  );
   return (
-    <header className={`${styles.flexBetween} p-4`}>
+    <header className={`${styles.flexBetween} py-4`}>
       <h1 className="uppercase text-3xl font-bold">da</h1>
       <ul className={`${styles.flexRow} gap-10 font-medium`}>
         <li>
@@ -24,10 +29,25 @@ const Header = () => {
           <Link
             className={`${
               path === "/cart" && "text-green-500 italic"
-            } hover:text-green-600`}
+            } hover:text-green-600 relative text-2xl`}
             href="/cart"
           >
-            Cart
+            <RiShoppingCartLine />
+            {cart.length > 0 && (
+              <span className="absolute flex items-center justify-center -right-2 -top-1  text-[10px] bg-purple-300 font-medium h-1 w-1 rounded-[50%] p-2">
+                {cart.length}
+              </span>
+            )}
+          </Link>
+        </li>
+        <li>
+          <Link
+            className={`${
+              path === "/cart" && "text-green-500 italic"
+            } hover:text-green-600`}
+            href="/login"
+          >
+            Login
           </Link>
         </li>
       </ul>

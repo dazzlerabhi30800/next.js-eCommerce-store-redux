@@ -9,7 +9,7 @@ const MenuBtn = () => {
   return (
     <button
       onClick={setSidebar}
-      className="text-2xl flex w-full justify-end text-black my-4 px-5"
+      className="text-2xl flex w-full justify-end text-black my-4"
     >
       {showSidebar ? <RiCloseLargeFill /> : <RiMenu3Line />}
     </button>

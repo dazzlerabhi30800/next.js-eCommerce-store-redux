@@ -2,6 +2,7 @@ import React from "react";
 import styles from "@/app/styles.module.css";
 import Image from "next/image";
 import { useProductStore } from "@/store/store";
+import { useRouter } from "next/navigation";
 
 const ProductComp = ({
   data: { id, title, price, discountPercentage, thumbnail, quantity },
@@ -9,6 +10,10 @@ const ProductComp = ({
   data: any;
 }) => {
   const addToCart = useProductStore((state) => state.addToCart);
+  const router = useRouter();
+  const productLoading = useProductStore((state) => state.productLoading);
+  const user = useProductStore((state) => state.user);
+  const removeFromCart = useProductStore((state) => state.removeFromCart);
   return (
     <div
       className={`${styles.flexCol} justify-between items-center text-center pb-8 px-8 gap-5 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
@@ -29,11 +34,37 @@ const ProductComp = ({
         </span>
       </div>
       <div
-        className={`${styles.flexRow} text-xl px-5 py-1 gap-5 border border-cyan-500 rounded-lg`}
+        className={`${styles.flexRow} ${
+          productLoading && "opacity-50 scale-70"
+        } text-xl px-5 py-1 gap-5 border border-cyan-500 rounded-lg transitionL`}
       >
-        <button>-</button>
+        <button
+          disabled={productLoading}
+          className="disabled:cursor-not-allowed disabled:text-gray-500"
+          onClick={() => {
+            if (!user) {
+              router.push("/login");
+            } else {
+              removeFromCart(id);
+            }
+          }}
+        >
+          -
+        </button>
         <p>{quantity}</p>
-        <button onClick={() => addToCart(id)}>+</button>
+        <button
+          disabled={productLoading}
+          className="disabled:cursor-not-allowed disabled:text-gray-500"
+          onClick={() => {
+            if (!user) {
+              router.push("/login");
+            } else {
+              addToCart(id);
+            }
+          }}
+        >
+          +
+        </button>
       </div>
     </div>
   );
