@@ -35,7 +35,7 @@ const ProductComp = ({
       </div>
       <div
         className={`${styles.flexRow} ${
-          productLoading && "opacity-50 scale-70"
+          productLoading && "opacity-50 scale-75"
         } text-xl px-5 py-1 gap-5 border border-cyan-500 rounded-lg transitionL`}
       >
         <button

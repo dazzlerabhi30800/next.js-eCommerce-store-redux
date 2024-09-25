@@ -8,6 +8,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface loginAuth {
@@ -16,8 +17,9 @@ interface loginAuth {
 }
 
 const Login = () => {
+  const router = useRouter();
   const state = useProductStore((state) => state);
-  const { user, setUser } = state;
+  const { setUser } = state;
   const [credentials, setCredentials] = useState<loginAuth>({
     email: "",
     password: "",
@@ -25,6 +27,7 @@ const Login = () => {
   const googleAuth = async () => {
     try {
       await signInWithPopup(auth, provider);
+      router.push("/");
     } catch (err) {
       alert(err);
     }
@@ -32,7 +35,6 @@ const Login = () => {
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
       setUser(user);
-      // console.log(user);
     });
     return () => unSub();
   }, []);
@@ -47,7 +49,7 @@ const Login = () => {
           updateProfile(userCredentials.user, {
             displayName: "Abhishek Choudary",
           });
-        }
+        },
       );
     } catch (err) {
       alert(err);

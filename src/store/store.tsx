@@ -46,7 +46,6 @@ export const useProductStore = create<ProductState>()(
         set({ productLoading: true });
         let cart = get().cart;
         let products = get().products;
-        console.log(cart);
         if (cart.length < 1) {
           setTimeout(() => {
             console.log("hello");
@@ -57,7 +56,6 @@ export const useProductStore = create<ProductState>()(
           }, 500);
           return;
         }
-        // console.log(cart);
         for (let i = 0; i < cart.length; i++) {
           for (let j = 0; j < products.length; j++) {
             if (cart[i].id === products[j].id) {
@@ -144,7 +142,7 @@ export const useProductStore = create<ProductState>()(
       fetchNewProducts: async (slug) => {
         set({ loading: true });
         const data = await fetch(
-          `https://dummyjson.com/products/category/${slug}`
+          `https://dummyjson.com/products/category/${slug}`,
         );
         const response = await data.json();
         if (response) {
@@ -167,6 +165,6 @@ export const useProductStore = create<ProductState>()(
         categories: state.categories,
         user: state.user,
       }),
-    }
-  )
+    },
+  ),
 );

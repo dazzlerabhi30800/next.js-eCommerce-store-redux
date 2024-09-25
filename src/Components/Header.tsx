@@ -43,7 +43,7 @@ const Header = () => {
         <li>
           <Link
             className={`${
-              path === "/cart" && "text-green-500 italic"
+              path === "/login" && "text-green-500 italic"
             } hover:text-green-600`}
             href="/login"
           >
