@@ -14,17 +14,13 @@ const page = () => {
         .filter((item: any) => item.quantity > 0)
         .map((item) => (
           <div
-            className={ `${styles.flexCol} items-center p-5 h-full gap-3 w-full bg-red-200 shadow-lg` }
+            className={`${styles.flexCol} items-center p-5 h-full gap-3 w-full bg-red-200 shadow-lg`}
             key={item.id}
           >
-            <img
-              src={item.thumbnail}
-              className="w-28 h-28"
-              alt={item.title}
-            />
+            <img src={item.thumbnail} className="w-28 h-28" alt={item.title} />
             <div className={`${styles.flexCol} items-center gap-3`}>
               <h2 className="text-lg">{item.title}</h2>
-              <p>${item.quantity * item.price}</p>
+              <p>${(item.quantity * item.price).toFixed(2)}</p>
               <div
                 className={`${styles.flexRow} w-fit ${
                   productLoading && "opacity-50 scale-75"

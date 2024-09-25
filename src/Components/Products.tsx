@@ -19,7 +19,7 @@ const Products = () => {
   }, [cart]);
   return (
     <div className="h-full flex-1 relative">
-      <section className="grid grid-cols-3 h-fit pb-5 gap-x-10 gap-y-16 px-10">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-fit pb-5 gap-x-10 gap-y-10 md:gap-y-16 md:px-5 lg:px-10">
         {loading ? (
           <Loader />
         ) : (

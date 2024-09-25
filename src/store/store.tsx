@@ -19,6 +19,7 @@ interface ProductState {
   fetchNewProducts: (slug: string) => void;
   setProductAmount: () => void;
   setProductLoading: (value: boolean) => void;
+  emptyCart: () => void;
 }
 
 export type category = {
@@ -39,7 +40,13 @@ export const useProductStore = create<ProductState>()(
       cart: [],
       setSidebar: () => {
         const sideState = get().showSidebar;
-        set({ showSidebar: !sideState });
+        if (sideState) {
+          document.body.classList.remove("overflowHidden");
+          set({ showSidebar: false });
+        } else {
+          document.body.classList.add("overflowHidden");
+          set({ showSidebar: true });
+        }
       },
       setProductLoading: (value) => set({ loading: value }),
       setProductAmount: () => {
@@ -48,7 +55,6 @@ export const useProductStore = create<ProductState>()(
         let products = get().products;
         if (cart.length < 1) {
           setTimeout(() => {
-            console.log("hello");
             set({
               productLoading: false,
               products: products.map((item) => ({ ...item, quantity: 0 })),
@@ -139,6 +145,11 @@ export const useProductStore = create<ProductState>()(
       setUser: (user) => {
         set({ user });
       },
+      emptyCart: () =>
+        set({
+          cart: [],
+          products: get().products.map((item) => ({ ...item, quantity: 0 })),
+        }),
       fetchNewProducts: async (slug) => {
         set({ loading: true });
         const data = await fetch(
@@ -154,6 +165,8 @@ export const useProductStore = create<ProductState>()(
             loading: false,
             showSidebar: false,
           });
+
+          document.body.classList.remove("overflowHidden");
         }
       },
     }),

@@ -16,7 +16,7 @@ const ProductComp = ({
   const removeFromCart = useProductStore((state) => state.removeFromCart);
   return (
     <div
-      className={`${styles.flexCol} justify-between items-center text-center pb-8 px-8 gap-5 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
+      className={`${styles.flexCol} justify-between items-center text-center pt-3 pb-8 md:pt-0 px-8 gap-5 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
     >
       <Image
         priority={true}
@@ -24,9 +24,9 @@ const ProductComp = ({
         width={300}
         alt={title}
         height={300}
-        className="w-fit h-40 object-cover"
+        className="w-fit h-28 md:h-40 object-cover"
       />
-      <h2 className="text-3xl">{title}</h2>
+      <h2 className="text-xl md:text-2xl lg:text-3xl">{title}</h2>
       <div className={`${styles.flexRow} text-xl gap-5`}>
         <span className="text-green-500 font-medium">${price}</span>
         <span className="text-green-500 font-medium">

@@ -13,8 +13,8 @@ const Header = () => {
   );
   return (
     <header className={`${styles.flexBetween} py-4`}>
-      <h1 className="uppercase text-3xl font-bold">da</h1>
-      <ul className={`${styles.flexRow} gap-10 font-medium`}>
+      <h1 className="uppercase text-2xl md:text-3xl font-bold">da</h1>
+      <ul className={`${styles.flexRow} gap-5 md:gap-10 text-sm md:text-lg font-medium`}>
         <li>
           <Link
             className={`${

@@ -10,3 +10,7 @@
   display: flex;
   align-items: center;
 }
+
+.h2 {
+  font-size: clamp(1.4rem, 2vw + 2px, 2rem);
+}
