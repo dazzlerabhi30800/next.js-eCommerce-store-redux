@@ -3,6 +3,7 @@ import styles from "@/app/styles.module.css";
 import Image from "next/image";
 import { useProductStore } from "@/store/store";
 import { useRouter } from "next/navigation";
+import { formatPrice } from "@/utils/FetchFuncs";
 
 const ProductComp = ({
   data: { id, title, price, discountPercentage, thumbnail, quantity },
@@ -15,16 +16,6 @@ const ProductComp = ({
   const user = useProductStore((state) => state.user);
   const removeFromCart = useProductStore((state) => state.removeFromCart);
   const setProductAmount = useProductStore((state) => state.setProductAmount);
-
-  const formatPrice = (price: number) => {
-    const format = new Intl.NumberFormat("en-IN", {
-      maximumSignificantDigits: 3,
-      style: "currency",
-      currency: "INR",
-    }).format(price);
-    return format;
-  };
-
   return (
     <div
       className={`${styles.flexCol} justify-between items-center text-center pt-3 pb-8 md:pt-0 px-8 gap-8 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
@@ -49,7 +40,7 @@ const ProductComp = ({
       <div
         className={`${styles.flexRow} ${
           productLoading && "opacity-50 scale-75"
-        } text-xl px-5 py-1 gap-5 border border-cyan-500 rounded-lg transitionL`}
+        } text-xl px-5 py-1 gap-5 border-2 border-cyan-300 rounded-lg transitionL`}
       >
         <button
           disabled={productLoading}
