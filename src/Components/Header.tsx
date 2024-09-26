@@ -13,7 +13,7 @@ import { BiCart } from "react-icons/bi";
 const Header = () => {
   const path = usePathname();
   const cart = useProductStore((state) => state.cart).filter(
-    (item) => item.quantity > 0,
+    (item) => item.quantity > 0
   );
   const setUser = useProductStore((state) => state.setUser);
   const user = useProductStore((state) => state.user);

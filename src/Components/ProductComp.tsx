@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useProductStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 import { formatPrice } from "@/utils/FetchFuncs";
+import Link from "next/link";
 
 const ProductComp = ({
   data: { id, title, price, discountPercentage, thumbnail, quantity },
@@ -20,14 +21,16 @@ const ProductComp = ({
     <div
       className={`${styles.flexCol} justify-between items-center text-center pt-3 pb-8 md:pt-0 px-8 gap-8 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
     >
-      <Image
-        priority={true}
-        src={thumbnail}
-        width={300}
-        alt={title}
-        height={300}
-        className="w-fit h-28 md:h-40 object-cover"
-      />
+      <Link href={`/product/${id}`}>
+        <Image
+          priority={true}
+          src={thumbnail}
+          width={300}
+          alt={title}
+          height={300}
+          className="w-fit h-28 md:h-40 object-cover"
+        />
+      </Link>
       <h2 className="text-xl md:text-2xl">{title}</h2>
       <div className={`${styles.flexRow} text-xl gap-5`}>
         <span className={`${styles.flexRow} gap-2 text-purple-500 font-bold`}>
