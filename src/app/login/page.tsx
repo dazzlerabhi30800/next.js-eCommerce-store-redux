@@ -1,4 +1,5 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import { useProductStore } from "@/store/store";
 import { auth, provider } from "@/utils/FirebaseConfig";
 import {
@@ -8,9 +9,9 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import styles from '@/app/styles.module.css';
+import styles from "@/app/styles.module.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface loginAuth {
   email: string;
@@ -21,6 +22,7 @@ const Login = () => {
   const router = useRouter();
   const state = useProductStore((state) => state);
   const { setUser, emptyCart } = state;
+  const [showPass, setShowPass] = useState<boolean>(false);
   const [credentials, setCredentials] = useState<loginAuth>({
     email: "",
     password: "",
@@ -47,13 +49,13 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = credentials;
     if (email.length < 5 || password.length < 5) return;
-    try {
-      signInWithEmailAndPassword(auth, email, password).then(() => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
         router.push("/");
+      })
+      .catch((err) => {
+        alert(err), setCredentials({ ...credentials, email: "", password: "" });
       });
-    } catch (err) {
-      alert(err);
-    }
   };
   return (
     <section className="flex-1 h-full flex items-center justify-center">
@@ -70,9 +72,9 @@ const Login = () => {
               className="rounded-lg w-full border border-gray-600 p-3 bg-transparent placeholder:text-gray-500 text-black"
             />
           </div>
-          <div>
+          <div className="relative">
             <input
-              type="password"
+              type={showPass ? "text" : "password"}
               value={credentials.password}
               placeholder="Enter your Password"
               onChange={(e) =>
@@ -80,6 +82,12 @@ const Login = () => {
               }
               className="rounded-lg border w-full border-gray-600 p-3 bg-transparent placeholder:text-gray-500 text-black"
             />
+            <button
+              onClick={() => setShowPass((prev) => !prev)}
+              className="absolute top-1/2 -translate-y-1/2 right-3 text-xl"
+            >
+              {showPass ? <FaEyeSlash /> : <FaEye />}
+            </button>
           </div>
           <button className="bg-black/80 text-white text-lg font-bold hover:bg-white hover:text-black p-3 rounded-lg">
             Submit
@@ -87,7 +95,7 @@ const Login = () => {
         </form>
         <button
           onClick={googleAuth}
-          className={ `${styles.flexCenter} gap-2 bg-gradient-to-l to-pink-500 from-blue-500  text-lg p-3 rounded-lg font-bold text-white hover:brightness-125` }
+          className={`${styles.flexCenter} gap-2 bg-gradient-to-l to-pink-500 from-blue-500  text-lg p-3 rounded-lg font-bold text-white hover:brightness-125`}
         >
           <FcGoogle className="text-2xl" />
           Google Auth

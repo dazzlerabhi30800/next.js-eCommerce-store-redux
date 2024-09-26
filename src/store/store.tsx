@@ -167,6 +167,7 @@ export const useProductStore = create<ProductState>()(
           });
 
           document.body.classList.remove("overflowHidden");
+          get().setProductAmount();
         }
       },
     }),
@@ -176,7 +177,7 @@ export const useProductStore = create<ProductState>()(
       partialize: (state) => ({
         cart: state.cart.filter((item: any) => item.quantity > 0),
         categories: state.categories,
-        // user: state.user,
+        user: state.user,
       }),
     },
   ),

@@ -1,16 +1,19 @@
 "use client";
 import { useProductStore } from "@/store/store";
 import React, { useEffect } from "react";
-import ProductComp from "./ProductComp";
 import Loader from "@/utils/Loader";
+import ProductComp from "@/Components/ProductComp";
+import { useParams } from "next/navigation";
 
-const Products = () => {
+const ProductCategoryPage = () => {
+  const { slug } = useParams();
   const loading = useProductStore((state) => state.loading);
   const products = useProductStore((state) => state.products);
-  const setProducts = useProductStore((state) => state.setProducts);
+  const fetchNewProducts = useProductStore((state) => state.fetchNewProducts);
 
   useEffect(() => {
-    setProducts();
+    if (!slug) return;
+    fetchNewProducts(slug.toString());
   }, []);
   return (
     <div className="h-full flex-1 relative">
@@ -27,4 +30,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductCategoryPage;

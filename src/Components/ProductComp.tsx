@@ -3,6 +3,7 @@ import styles from "@/app/styles.module.css";
 import Image from "next/image";
 import { useProductStore } from "@/store/store";
 import { useRouter } from "next/navigation";
+import { LuIndianRupee } from "react-icons/lu";
 
 const ProductComp = ({
   data: { id, title, price, discountPercentage, thumbnail, quantity },
@@ -14,9 +15,10 @@ const ProductComp = ({
   const productLoading = useProductStore((state) => state.productLoading);
   const user = useProductStore((state) => state.user);
   const removeFromCart = useProductStore((state) => state.removeFromCart);
+  const setProductAmount = useProductStore((state) => state.setProductAmount);
   return (
     <div
-      className={`${styles.flexCol} justify-between items-center text-center pt-3 pb-8 md:pt-0 px-8 gap-5 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
+      className={`${styles.flexCol} justify-between items-center text-center pt-3 pb-8 md:pt-0 px-8 gap-8 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
     >
       <Image
         priority={true}
@@ -26,10 +28,13 @@ const ProductComp = ({
         height={300}
         className="w-fit h-28 md:h-40 object-cover"
       />
-      <h2 className="text-xl md:text-2xl lg:text-3xl">{title}</h2>
+      <h2 className="text-xl md:text-2xl">{title}</h2>
       <div className={`${styles.flexRow} text-xl gap-5`}>
-        <span className="text-green-500 font-medium">${price}</span>
-        <span className="text-green-500 font-medium">
+        <span className={ `${styles.flexRow} gap-2 text-purple-500 font-bold` }>
+          <LuIndianRupee />
+          {(price * 83.7).toFixed(2)}
+        </span>
+        <span className="bg-black rounded-xl text-white text-sm py-1 px-3 font-medium">
           -{discountPercentage}%
         </span>
       </div>
@@ -46,6 +51,7 @@ const ProductComp = ({
               router.push("/login");
             } else {
               removeFromCart(id);
+              setProductAmount();
             }
           }}
         >
@@ -60,6 +66,7 @@ const ProductComp = ({
               router.push("/login");
             } else {
               addToCart(id);
+              setProductAmount();
             }
           }}
         >
