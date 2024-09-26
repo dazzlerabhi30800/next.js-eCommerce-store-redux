@@ -1,14 +1,19 @@
-.flexCol{
+.flexCol {
   display: flex;
   flex-direction: column;
 }
-.flexBetween{
+.flexBetween {
   display: flex;
   justify-content: space-between;
 }
-.flexRow{
+.flexRow {
   display: flex;
   align-items: center;
+}
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .h2 {

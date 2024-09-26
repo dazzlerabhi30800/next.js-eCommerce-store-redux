@@ -5,10 +5,10 @@ import { auth } from "@/utils/FirebaseConfig";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
-  signOut,
   updateProfile,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface loginAuth {
   name: string;
@@ -19,7 +19,7 @@ interface loginAuth {
 const page = () => {
   const router = useRouter();
   const state = useProductStore((state) => state);
-  const { setUser, emptyCart, user } = state;
+  const { setUser, emptyCart } = state;
   const [credentials, setCredentials] = useState<loginAuth>({
     name: "",
     email: "",
@@ -94,13 +94,12 @@ const page = () => {
             Create Account
           </button>
         </form>
-
-        <button
-          onClick={() => signOut(auth)}
-          className="bg-gradient-to-l from-blue-500 to-pink-500 text-lg p-3 rounded-lg font-bold text-white hover:brightness-125"
-        >
-          Logout
-        </button>
+        <p className="md:text-lg text-center font-medium">
+          Already have an account?{" "}
+          <Link className="hover:underline" href="/login">
+            Login
+          </Link>
+        </p>
       </div>
     </section>
   );
