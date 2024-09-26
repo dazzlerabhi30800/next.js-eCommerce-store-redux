@@ -3,7 +3,6 @@ import styles from "@/app/styles.module.css";
 import Image from "next/image";
 import { useProductStore } from "@/store/store";
 import { useRouter } from "next/navigation";
-import { LuIndianRupee } from "react-icons/lu";
 
 const ProductComp = ({
   data: { id, title, price, discountPercentage, thumbnail, quantity },
@@ -16,6 +15,16 @@ const ProductComp = ({
   const user = useProductStore((state) => state.user);
   const removeFromCart = useProductStore((state) => state.removeFromCart);
   const setProductAmount = useProductStore((state) => state.setProductAmount);
+
+  const formatPrice = (price: number) => {
+    const format = new Intl.NumberFormat("en-IN", {
+      maximumSignificantDigits: 3,
+      style: "currency",
+      currency: "INR",
+    }).format(price);
+    return format;
+  };
+
   return (
     <div
       className={`${styles.flexCol} justify-between items-center text-center pt-3 pb-8 md:pt-0 px-8 gap-8 rounded-lg border border-gray-600 shadow-xl shadow-gray-500/40`}
@@ -30,9 +39,8 @@ const ProductComp = ({
       />
       <h2 className="text-xl md:text-2xl">{title}</h2>
       <div className={`${styles.flexRow} text-xl gap-5`}>
-        <span className={ `${styles.flexRow} gap-2 text-purple-500 font-bold` }>
-          <LuIndianRupee />
-          {(price * 83.7).toFixed(2)}
+        <span className={`${styles.flexRow} gap-2 text-purple-500 font-bold`}>
+          {formatPrice(price * 83.7)}
         </span>
         <span className="bg-black rounded-xl text-white text-sm py-1 px-3 font-medium">
           -{discountPercentage}%
