@@ -1,6 +1,7 @@
 "use client";
 import CheckoutPage from "@/Components/CheckoutPage";
-import { convertToSubcurrency } from "@/utils/FetchFuncs";
+import { useProductStore } from "@/store/store";
+import { convertToSubcurrency, formatPrice } from "@/utils/FetchFuncs";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
@@ -10,9 +11,16 @@ if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 const Page = () => {
-  const amount = 50;
+  const cartAmount = useProductStore((state) => state.cart).reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    0
+  );
+  const amount = cartAmount;
   return (
     <section>
+      <h1 className="text-3xl bg-gradient-to-r from-pink-500 to-cyan-500 w-fit text-center text-white mx-auto p-4 mb-5">
+        You've been asked to pay {formatPrice(amount)}
+      </h1>
       <Elements
         stripe={stripePromise}
         options={{

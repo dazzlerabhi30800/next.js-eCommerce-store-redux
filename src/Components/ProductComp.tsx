@@ -34,7 +34,7 @@ const ProductComp = ({
       <h2 className="text-xl md:text-2xl">{title}</h2>
       <div className={`${styles.flexRow} text-xl gap-5`}>
         <span className={`${styles.flexRow} gap-2 text-purple-500 font-bold`}>
-          {formatPrice(price * 83.7)}
+          {formatPrice(price)}
         </span>
         <span className="bg-black rounded-xl text-white text-sm py-1 px-3 font-medium">
           -{discountPercentage}%

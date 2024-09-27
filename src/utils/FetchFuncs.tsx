@@ -8,7 +8,7 @@ export const formatPrice = (price: number) => {
   const format = new Intl.NumberFormat("en-IN", {
     maximumSignificantDigits: 3,
     style: "currency",
-    currency: "INR",
+    currency: "USD",
   }).format(price);
   return format;
 };

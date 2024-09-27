@@ -14,6 +14,7 @@
     "@mui/material": "^6.1.1",
     "@stripe/react-stripe-js": "^2.8.0",
     "@stripe/stripe-js": "^4.5.0",
+    "anchor-pki": "^0.3.2",
     "firebase": "^10.13.2",
     "next": "14.2.12",
     "react": "^18",

@@ -1,0 +1,10 @@
+[lcl-host]
+realm-apid = 'localhost'
+
+[org]
+apid = 'dazzlerabhi30800'
+
+[service]
+apid = 'ecommerce-store-redux'
+category = 'javascript'
+cert-style = 'acme'
