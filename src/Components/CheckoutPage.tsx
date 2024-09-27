@@ -16,7 +16,7 @@ const CheckoutPage = ({ amount }: checkoutProps) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [errorMessage, setErrorMessage] = useState<any>("");
+  const [errorMessage, setErrorMessage] = useState<any | undefined>("");
   const [clientSecret, setClientSecret] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
