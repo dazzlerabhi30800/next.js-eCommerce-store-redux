@@ -5,7 +5,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 export type cart = {
   id: number | undefined;
-  thumbnail: string | undefined;
+  thumbnail: string;
   title: string | undefined;
   quantity: number;
   price: number;
