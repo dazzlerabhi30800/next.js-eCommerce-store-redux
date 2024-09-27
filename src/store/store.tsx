@@ -1,18 +1,14 @@
 import { fetchCategory } from "@/utils/FetchFuncs";
+import { User } from "firebase/auth";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-
-type user = {
-  displayName: string;
-  email: string;
-};
 
 export type cart = {
   id: number | undefined;
   thumbnail: string | undefined;
   title: string | undefined;
   quantity: number;
-  price: number | undefined;
+  price: number;
 };
 
 export type product = {
@@ -24,6 +20,7 @@ export type product = {
   description: string;
   category: string;
   rating: number;
+  discountPercentage: number;
 };
 
 interface ProductState {
@@ -33,9 +30,9 @@ interface ProductState {
   showSidebar: boolean;
   cart: cart[];
   categories: category[];
-  user: user | null;
+  user: User | null;
   setProducts: () => void;
-  setUser: (user: user) => void;
+  setUser: (user: User | null) => void;
   setCategories: () => void;
   setSidebar: () => void;
   addToCart: (id: number) => void;
@@ -178,7 +175,7 @@ export const useProductStore = create<ProductState>()(
       fetchNewProducts: async (slug) => {
         set({ loading: true });
         const data = await fetch(
-          `https://dummyjson.com/products/category/${slug}`,
+          `https://dummyjson.com/products/category/${slug}`
         );
         const response = await data.json();
         if (response) {
@@ -204,6 +201,6 @@ export const useProductStore = create<ProductState>()(
         categories: state.categories,
         user: state.user,
       }),
-    },
-  ),
+    }
+  )
 );

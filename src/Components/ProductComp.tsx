@@ -9,11 +9,14 @@ import { motion } from "framer-motion";
 
 interface data {
   id: number;
-  title: string;
-  price: number;
-  discountPercentage: number;
   thumbnail: string;
-  quantity: number;
+  title: string;
+  quantity: number | undefined;
+  price: number;
+  description: string;
+  category: string;
+  rating: number;
+  discountPercentage: number;
 }
 
 const ProductComp = ({
