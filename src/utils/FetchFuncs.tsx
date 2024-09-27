@@ -27,3 +27,7 @@ export const formatDate = (date: string) => {
   const year = formattedDate.getFullYear();
   return `${date1}/${month}/${year}`;
 };
+
+export const convertToSubcurrency = (amount: number, factor = 100) => {
+  return Math.round(amount * factor);
+};

@@ -59,7 +59,7 @@ const Header = () => {
           >
             <RiShoppingCartLine />
             {cart.length > 0 && (
-              <span className="absolute flex items-center justify-center -right-2 -top-1  text-[10px] bg-purple-300 font-medium h-1 w-1 rounded-[50%] p-2">
+              <span className="absolute flex items-center justify-center -right-2 -top-1  text-[10px] bg-purple-300 text-black font-medium h-1 w-1 rounded-[50%] p-2">
                 {cart.length}
               </span>
             )}

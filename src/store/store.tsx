@@ -153,7 +153,7 @@ export const useProductStore = create<ProductState>()(
       fetchNewProducts: async (slug) => {
         set({ loading: true });
         const data = await fetch(
-          `https://dummyjson.com/products/category/${slug}`,
+          `https://dummyjson.com/products/category/${slug}`
         );
         const response = await data.json();
         if (response) {
@@ -179,6 +179,6 @@ export const useProductStore = create<ProductState>()(
         categories: state.categories,
         user: state.user,
       }),
-    },
-  ),
+    }
+  )
 );
