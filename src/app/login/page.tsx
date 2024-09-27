@@ -54,7 +54,8 @@ const Login = () => {
         router.push("/");
       })
       .catch((err) => {
-        alert(err), setCredentials({ ...credentials, email: "", password: "" });
+        alert(err);
+        setCredentials({ ...credentials, email: "", password: "" });
       });
   };
   return (
