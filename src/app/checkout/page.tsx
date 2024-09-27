@@ -13,7 +13,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 const Page = () => {
   const cartAmount = useProductStore((state) => state.cart).reduce(
     (acc, item) => acc + item.quantity * item.price,
-    0
+    0,
   );
   const amount = cartAmount;
   return (
@@ -25,7 +25,7 @@ const Page = () => {
         stripe={stripePromise}
         options={{
           mode: "payment",
-          amount: convertToSubcurrency(amount), // amount;
+          amount: convertToSubcurrency(amount),
           currency: "usd",
         }}
       >
