@@ -4,6 +4,7 @@ import React from "react";
 import styles from "@/app/styles.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const page = () => {
   const router = useRouter();
@@ -17,12 +18,23 @@ const page = () => {
     );
   return (
     <section className={`${styles.flexCol} gap-20`}>
-      <div className={`grid grid-cols-3 pb-10 gap-5 relative`}>
+      <div
+        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pb-10 gap-5 relative`}
+      >
         {cart
           .filter((item: any) => item.quantity > 0)
-          .map((item) => (
-            <div
-              className={`${styles.flexCol} items-center p-5 h-full gap-3 w-full bg-red-200 shadow-lg`}
+          .map((item, index: number) => (
+            <motion.div
+              initial={{ opacity: 0, y: -200 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.1,
+                ease: "linear",
+                type: "spring",
+                stiffness: 100,
+              }}
+              className={`${styles.flexCol} items-center p-5 h-full gap-3 w-full bg-pink-100 shadow-lg`}
               key={item.id}
             >
               <img
@@ -67,7 +79,7 @@ const page = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
       </div>
       {cart.length > 1 && (

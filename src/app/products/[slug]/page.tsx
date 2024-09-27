@@ -21,8 +21,8 @@ const ProductCategoryPage = () => {
         {loading ? (
           <Loader />
         ) : (
-          products?.map((product) => (
-            <ProductComp key={product?.id} data={product} />
+          products?.map((product, index: number) => (
+            <ProductComp key={product?.id} data={product} index={index} />
           ))
         )}
       </section>

@@ -58,7 +58,7 @@ const ProductDetailPage = async ({
           <p className="text-[1rem] md:text-[1.5rem]">{description}</p>
           <div className={`${styles.flexRow} gap-8`}>
             <h2 className="text-[1.5rem] md:text-[2rem]  font-bold">
-              {formatPrice(price * 83.7)}
+              {formatPrice(price)}
             </h2>
             <p className="text-red-500 md:text-lg bg-red-200 font-medium py-1 px-4 rounded-xl">
               -{discountPercentage}%
@@ -90,12 +90,17 @@ const ProductDetailPage = async ({
                 {formatDate(review.date)}
               </p>
             </div>
-            <Rating
-              name="read-only"
-              value={review.rating}
-              precision={0.1}
-              readOnly
-            />
+            <div className={`${styles.flexRow} gap-2`}>
+              <Rating
+                name="read-only"
+                value={review.rating}
+                precision={0.1}
+                readOnly
+              />
+              <p className="text-lg text-gray-600 font-medium">
+                {review.rating.toFixed(1)}
+              </p>
+            </div>
             <p className="sm:text-lg italic">{review.comment}</p>
           </div>
         ))}

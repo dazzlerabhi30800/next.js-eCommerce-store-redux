@@ -17,7 +17,7 @@ interface loginAuth {
   password: string;
 }
 
-const page = () => {
+const SignUpPage = () => {
   const router = useRouter();
   const state = useProductStore((state) => state);
   const { setUser, emptyCart } = state;
@@ -51,7 +51,7 @@ const page = () => {
             displayName: name,
           });
           router.push("/");
-        },
+        }
       );
     } catch (err) {
       alert(err);
@@ -116,4 +116,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignUpPage;

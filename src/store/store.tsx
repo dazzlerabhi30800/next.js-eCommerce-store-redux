@@ -51,8 +51,8 @@ export const useProductStore = create<ProductState>()(
       setProductLoading: (value) => set({ loading: value }),
       setProductAmount: () => {
         set({ productLoading: true });
-        let cart = get().cart;
-        let products = get().products;
+        const cart = get().cart;
+        const products = get().products;
         if (cart.length < 1) {
           setTimeout(() => {
             set({
@@ -98,8 +98,8 @@ export const useProductStore = create<ProductState>()(
       addToCart: async (id) => {
         if (!id) return;
         const cart = get().cart;
-        let itemFind = get().cart.find((item) => item.id === id);
-        let productItem = get().products.find((item) => item.id === id);
+        const itemFind = get().cart.find((item) => item.id === id);
+        const productItem = get().products.find((item) => item.id === id);
         if (!itemFind) {
           set({
             cart: [
@@ -127,9 +127,9 @@ export const useProductStore = create<ProductState>()(
       removeFromCart: (id) => {
         if (!id || !get().user) return;
         const cart = get().cart;
-        let itemFind = get().cart.find((item) => item.id === id);
+        const itemFind = get().cart.find((item) => item.id === id);
         if (!itemFind) return;
-        let newCart = cart.map((item) => {
+        const newCart = cart.map((item) => {
           if (item.id === id) {
             return {
               ...item,
@@ -153,7 +153,7 @@ export const useProductStore = create<ProductState>()(
       fetchNewProducts: async (slug) => {
         set({ loading: true });
         const data = await fetch(
-          `https://dummyjson.com/products/category/${slug}`
+          `https://dummyjson.com/products/category/${slug}`,
         );
         const response = await data.json();
         if (response) {
@@ -179,6 +179,6 @@ export const useProductStore = create<ProductState>()(
         categories: state.categories,
         user: state.user,
       }),
-    }
-  )
+    },
+  ),
 );
