@@ -4,9 +4,9 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export type cart = {
-  id: number | undefined;
+  id: number;
   thumbnail: string;
-  title: string | undefined;
+  title: string;
   quantity: number;
   price: number;
 };
@@ -15,7 +15,7 @@ export type product = {
   id: number;
   thumbnail: string;
   title: string;
-  quantity: number | undefined;
+  quantity: number;
   price: number;
   description: string;
   category: string;
