@@ -7,11 +7,20 @@ import { formatPrice } from "@/utils/FetchFuncs";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+interface data {
+  id: number;
+  title: string;
+  price: number;
+  discountPercentage: number;
+  thumbnail: string;
+  quantity: number;
+}
+
 const ProductComp = ({
   data: { id, title, price, discountPercentage, thumbnail, quantity },
   index,
 }: {
-  data: any;
+  data: data;
   index: number;
 }) => {
   const addToCart = useProductStore((state) => state.addToCart);

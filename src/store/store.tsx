@@ -2,16 +2,40 @@ import { fetchCategory } from "@/utils/FetchFuncs";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+type user = {
+  displayName: string;
+  email: string;
+};
+
+export type cart = {
+  id: number | undefined;
+  thumbnail: string | undefined;
+  title: string | undefined;
+  quantity: number;
+  price: number | undefined;
+};
+
+export type product = {
+  id: number;
+  thumbnail: string;
+  title: string;
+  quantity: number | undefined;
+  price: number;
+  description: string;
+  category: string;
+  rating: number;
+};
+
 interface ProductState {
   loading: boolean;
   productLoading: boolean;
-  products: any[];
+  products: product[];
   showSidebar: boolean;
-  cart: any[];
+  cart: cart[];
   categories: category[];
-  user: any;
+  user: user | null;
   setProducts: () => void;
-  setUser: (user: any) => void;
+  setUser: (user: user) => void;
   setCategories: () => void;
   setSidebar: () => void;
   addToCart: (id: number) => void;
@@ -82,7 +106,7 @@ export const useProductStore = create<ProductState>()(
         const response = await data.json();
         if (response) {
           set({
-            products: response.products.map((item: any) => ({
+            products: response.products.map((item: product) => ({
               ...item,
               quantity: 0,
             })),
@@ -100,15 +124,16 @@ export const useProductStore = create<ProductState>()(
         const cart = get().cart;
         const itemFind = get().cart.find((item) => item.id === id);
         const productItem = get().products.find((item) => item.id === id);
+        if (!productItem) return;
         if (!itemFind) {
           set({
             cart: [
               ...cart,
               {
-                title: productItem.title,
-                price: productItem.price,
-                thumbnail: productItem.thumbnail,
-                id: productItem.id,
+                title: productItem?.title,
+                price: productItem?.price,
+                thumbnail: productItem?.thumbnail,
+                id: productItem?.id,
                 quantity: 1,
               },
             ],
@@ -158,7 +183,7 @@ export const useProductStore = create<ProductState>()(
         const response = await data.json();
         if (response) {
           set({
-            products: response.products?.map((item: any) => ({
+            products: response.products?.map((item: product) => ({
               ...item,
               quantity: 0,
             })),
@@ -175,7 +200,7 @@ export const useProductStore = create<ProductState>()(
       name: "products",
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
-        cart: state.cart.filter((item: any) => item.quantity > 0),
+        cart: state.cart.filter((item: cart) => item?.quantity > 0),
         categories: state.categories,
         user: state.user,
       }),

@@ -5,8 +5,9 @@ import styles from "@/app/styles.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-const page = () => {
+const CartPage = () => {
   const router = useRouter();
   const state = useProductStore((state) => state);
   const { cart, productLoading, addToCart, removeFromCart, user } = state;
@@ -22,7 +23,7 @@ const page = () => {
         className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pb-10 gap-5 relative`}
       >
         {cart
-          .filter((item: any) => item.quantity > 0)
+          .filter((item) => item.quantity > 0)
           .map((item, index: number) => (
             <motion.div
               initial={{ opacity: 0, y: -200 }}
@@ -37,10 +38,13 @@ const page = () => {
               className={`${styles.flexCol} items-center p-5 h-full gap-3 w-full bg-pink-100 shadow-lg`}
               key={item.id}
             >
-              <img
+              <Image
+                priority={true}
                 src={item.thumbnail}
-                className="w-28 h-28"
+                width={300}
                 alt={item.title}
+                height={300}
+                className="w-fit h-28 md:h-40 object-cover"
               />
               <div className={`${styles.flexCol} items-center gap-3`}>
                 <h2 className="text-lg">{item.title}</h2>
@@ -94,4 +98,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CartPage;

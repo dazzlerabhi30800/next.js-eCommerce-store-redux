@@ -5,6 +5,7 @@ import { convertToSubcurrency, formatPrice } from "@/utils/FetchFuncs";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import React from "react";
+
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("next public key is undefined");
 }
@@ -19,7 +20,7 @@ const Page = () => {
   return (
     <section>
       <h1 className="text-3xl bg-gradient-to-r from-pink-500 to-cyan-500 w-fit text-center text-white mx-auto p-4 mb-5">
-        You've been asked to pay {formatPrice(amount)}
+        You have been asked to pay {formatPrice(amount)}
       </h1>
       <Elements
         stripe={stripePromise}
