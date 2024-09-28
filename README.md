@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Trello Clone 2.0 in Next.js
 
-## Getting Started
+## Tech Stack
 
-First, run the development server:
+- Zustand :- for state management
+- Typescript :- for safe type checking
+- TailwindCSS :- for CSS
+- React Icons :- for icons
+- Firebase :- for Authentication
+- Framer Motion :- for animation
+- Anchor Pki :- to convert http server to https
+- Product API :- to fetch products
+- Material UI :- for rating UI Component
+- Stripe :- for payment gateway
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How to run Locally
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. First fork or clone the repo then inside root folder run `npm install` to install the dependencies.
+2. Then make a .env.local file in root dir & initialize variables. Grab your secret & publishable key from Stripe Dashboard & make two variables :-
+   a.NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+   b.STRIPE_SECRET_KEY
+3. You are done & ready to run inside the root folder run the command `npm run dev`.
+4. One more thing u need to install _[Anchor Lcl](https://lcl.host/) as stripe payment gateway will throw error for using http instead of https.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**You can view the live site _[Shopee Live](https://next-js-e-commerce-store-redux.vercel.app/)_**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Shopee UI
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![App UI](./src/ecommerce.png)
