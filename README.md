@@ -20,9 +20,9 @@
    - NEXT_PUBLIC_STRIPE_PUBLIC_KEY
    - STRIPE_SECRET_KEY
 3. You are done & ready to run inside the root folder run the command `npm run dev`.
-4. One more thing u need to install _[Anchor Lcl](https://lcl.host/){target="_blank"} _ as stripe payment gateway will throw error for using http instead of https.
+4. One more thing u need to install [Anchor Lcl](https://lcl.host/){target="_blank"} as stripe payment gateway will throw error for using http instead of https.
 
-**You can view the live site _[Shopee Live](https://next-js-e-commerce-store-redux.vercel.app/){target="_blank"}_**
+**You can view the live site [Shopee Live](https://next-js-e-commerce-store-redux.vercel.app/){target="_blank"}**
 
 ### Shopee UI
 
