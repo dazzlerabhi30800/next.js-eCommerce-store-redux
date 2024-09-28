@@ -17,8 +17,8 @@
 
 1. First fork or clone the repo then inside root folder run `npm install` to install the dependencies.
 2. Then make a .env.local file in root dir & initialize variables. Grab your secret & publishable key from Stripe Dashboard & make two variables.
-   1. NEXT_PUBLIC_STRIPE_PUBLIC_KEY
-   2. STRIPE_SECRET_KEY
+   * NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+   * STRIPE_SECRET_KEY
 3. You are done & ready to run inside the root folder run the command `npm run dev`.
 4. One more thing u need to install _[Anchor Lcl](https://lcl.host/)_ as stripe payment gateway will throw error for using http instead of https.
 
