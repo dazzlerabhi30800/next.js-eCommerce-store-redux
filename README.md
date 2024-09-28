@@ -17,12 +17,12 @@
 
 1. First fork or clone the repo then inside root folder run `npm install` to install the dependencies.
 2. Then make a .env.local file in root dir & initialize variables. Grab your secret & publishable key from Stripe Dashboard & make two variables.
-   * NEXT_PUBLIC_STRIPE_PUBLIC_KEY
-   * STRIPE_SECRET_KEY
+   - NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+   - STRIPE_SECRET_KEY
 3. You are done & ready to run inside the root folder run the command `npm run dev`.
 4. One more thing u need to install _[Anchor Lcl](https://lcl.host/){:target="_blank"} _ as stripe payment gateway will throw error for using http instead of https.
 
-**You can view the live site _[Shopee Live](https://next-js-e-commerce-store-redux.vercel.app/){:target="_blank"} _**
+**You can view the live site _[Shopee Live](https://next-js-e-commerce-store-redux.vercel.app/)_{:target="_blank"}**
 
 ### Shopee UI
 
