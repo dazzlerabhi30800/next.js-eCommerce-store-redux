@@ -38,14 +38,16 @@ const CartPage = () => {
               className={`${styles.flexCol} items-center p-5 h-full gap-3 w-full bg-pink-100 shadow-lg`}
               key={item.id}
             >
-              <Image
-                priority={true}
-                src={item.thumbnail}
-                width={300}
-                alt={item.title}
-                height={300}
-                className="w-fit h-28 md:h-40 object-cover"
-              />
+              <Link href={`/product/${item.id}`}>
+                <Image
+                  priority={true}
+                  src={item.thumbnail}
+                  width={300}
+                  alt={item.title}
+                  height={300}
+                  className="w-fit h-28 md:h-40 object-cover"
+                />
+              </Link>
               <div className={`${styles.flexCol} items-center gap-3`}>
                 <h2 className="text-lg">{item.title}</h2>
                 <p>${(item.quantity * item.price).toFixed(2)}</p>

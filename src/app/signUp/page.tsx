@@ -61,7 +61,7 @@ const SignUpPage = () => {
   return (
     <section className="flex-1 h-full flex items-center justify-center">
       <div className="p-4 sm:p-7 rounded-lg bg-pink-300/70 min-w-[300px] w-full max-w-[450px] text-black flex flex-col shadow-lg gap-7">
-        <div onClick={handleSubmit} className="flex flex-col gap-7">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-7">
           <div className="relative">
             <input
               type="text"
@@ -104,7 +104,7 @@ const SignUpPage = () => {
           <button className="bg-black/80 text-white text-lg font-bold hover:bg-white hover:text-black p-3 rounded-lg">
             Create Account
           </button>
-        </div>
+        </form>
         <p className="md:text-lg text-center font-medium">
           Already have an account?{" "}
           <Link className="hover:underline" href="/login">
