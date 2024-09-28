@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <main className="mx-8 md:mx-12 lg:mx-16 min-h-screen flex flex-col">
+        <main className="mx-6 sm:mx-9 md:mx-12 lg:mx-16 min-h-screen flex flex-col">
           <Header />
           <MenuBtn />
           <SideBar />
