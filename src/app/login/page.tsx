@@ -102,7 +102,7 @@ const Login = () => {
           Google Auth
         </button>
         <p className="md:text-lg text-center font-medium">
-          Does not have an account?
+          Does not have an account?{" "}
           <Link className="hover:underline" href="/signUp">
             Sign Up
           </Link>
