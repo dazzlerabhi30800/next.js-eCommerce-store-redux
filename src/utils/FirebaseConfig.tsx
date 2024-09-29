@@ -9,10 +9,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// if (process.env.NEXT_PUBLIC_FIREBASE_API_KEY === undefined) {
+//   throw new Error("firebase api key is undefined");
+// }
 
-const key = process.env.FIREBASE_API_KEY?.toString();
 const firebaseConfig = {
-  apiKey: key,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: "e-commerce-next-b710f.firebaseapp.com",
   projectId: "e-commerce-next-b710f",
   storageBucket: "e-commerce-next-b710f.appspot.com",
