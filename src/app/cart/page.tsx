@@ -91,7 +91,7 @@ const CartPage = () => {
       {cart.length > 1 && (
         <Link
           href="/checkout"
-          className="py-3 px-10 text-2xl w-fit mx-auto bg-black text-white hover:brightness-70 hover:bg-gray-300 hover:text-black shadow-md"
+          className="py-3 px-10 mb-10 rounded-md text-2xl w-fit mx-auto bg-black text-white hover:brightness-70 hover:bg-gray-300 hover:text-black shadow-md"
         >
           Checkout
         </Link>
