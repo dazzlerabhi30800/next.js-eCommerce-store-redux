@@ -181,12 +181,12 @@ export const useProductStore = create<ProductState>()(
         const response = await data.json();
         if (response) {
           set({
+            showSidebar: false,
             products: response.products?.map((item: product) => ({
               ...item,
               quantity: 0,
             })),
             loading: false,
-            showSidebar: false,
           });
 
           document.body.classList.remove("overflowHidden");
