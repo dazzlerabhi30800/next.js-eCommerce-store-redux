@@ -115,7 +115,7 @@ const CartPage = () => {
           <p className="font-semibold">{formatPrice(cartPrice)}</p>
         </div>
       </div>
-      {cart.length > 1 && (
+      {cart.length >= 1 && (
         <Link
           href="/checkout"
           className="py-3 px-10 mb-10 rounded-md text-2xl w-fit mx-auto bg-black text-white hover:brightness-70 hover:bg-gray-300 hover:text-black shadow-md"
