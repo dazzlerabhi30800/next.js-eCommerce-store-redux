@@ -6,11 +6,17 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { formatPrice } from "@/utils/FetchFuncs";
+import { AiOutlineClose } from "react-icons/ai";
 
 const CartPage = () => {
   const router = useRouter();
   const state = useProductStore((state) => state);
-  const { cart, productLoading, addToCart, removeFromCart, user } = state;
+  const { cart, productLoading, addToCart, removeFromCart, user, removeItem } =
+    state;
+  const cartPrice = cart.reduce((acc: number, item: any) => {
+    return acc + item.quantity * item.price;
+  }, 0);
   if (cart.length < 1)
     return (
       <h1 className="absolute top-20 -translate-x-1/2 left-1/2 text-xl md:text-4xl">
@@ -38,6 +44,12 @@ const CartPage = () => {
               className={`${styles.flexCol} items-center p-5 h-full gap-3 w-full bg-pink-100 shadow-lg`}
               key={item.id}
             >
+              <button
+                onClick={() => removeItem(item.id)}
+                className="text-xl self-end hover:text-gray-600"
+              >
+                <AiOutlineClose />
+              </button>
               <Link href={`/product/${item.id}`}>
                 <Image
                   priority={true}
@@ -87,6 +99,22 @@ const CartPage = () => {
               </div>
             </motion.div>
           ))}
+      </div>
+      {/* NOTE: Summary */}
+      <div
+        className={`${styles.flexCol} gap-5 md:text-xl bg-teal-200/70 p-5 w-[300px] md:w-[400px] mx-auto rounded-xl shadow-xl text-black`}
+      >
+        <h4 className="text-xl md:text-3xl">Summary</h4>
+        <div className={`${styles.flexRow} justify-between`}>
+          <p>Total Items </p>
+          <p className="font-semibold">
+            {cart.filter((item) => item.quantity > 0).length}
+          </p>
+        </div>
+        <div className={`${styles.flexRow} justify-between`}>
+          <p>Total Price </p>
+          <p className="font-semibold">{formatPrice(cartPrice)}</p>
+        </div>
       </div>
       {cart.length > 1 && (
         <Link

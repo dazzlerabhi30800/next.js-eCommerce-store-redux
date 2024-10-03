@@ -41,6 +41,7 @@ interface ProductState {
   setProductAmount: () => void;
   setProductLoading: (value: boolean) => void;
   emptyCart: () => void;
+  removeItem: (id: number) => void;
 }
 
 export type category = {
@@ -175,7 +176,7 @@ export const useProductStore = create<ProductState>()(
       fetchNewProducts: async (slug) => {
         set({ loading: true });
         const data = await fetch(
-          `https://dummyjson.com/products/category/${slug}`
+          `https://dummyjson.com/products/category/${slug}`,
         );
         const response = await data.json();
         if (response) {
@@ -192,6 +193,20 @@ export const useProductStore = create<ProductState>()(
           get().setProductAmount();
         }
       },
+      removeItem: (id) => {
+        const products = get().products;
+        const cart = get().cart;
+        if (!id) return;
+        set({
+          products: products.map((item) => {
+            if (item.id === id) {
+              return { ...item, quantity: 0 };
+            }
+            return item;
+          }),
+          cart: cart.filter((item) => item.id !== id),
+        });
+      },
     }),
     {
       name: "products",
@@ -201,6 +216,6 @@ export const useProductStore = create<ProductState>()(
         categories: state.categories,
         user: state.user,
       }),
-    }
-  )
+    },
+  ),
 );
