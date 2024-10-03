@@ -11,9 +11,8 @@ import { AiOutlineClose } from "react-icons/ai";
 
 const CartPage = () => {
   const router = useRouter();
-  const state = useProductStore((state) => state);
   const { cart, productLoading, addToCart, removeFromCart, user, removeItem } =
-    state;
+    useProductStore((state) => state);
   const cartPrice = cart.reduce((acc: number, item: any) => {
     return acc + item.quantity * item.price;
   }, 0);
