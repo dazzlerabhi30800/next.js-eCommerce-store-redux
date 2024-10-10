@@ -1,4 +1,4 @@
-# Trello Clone 2.0 in Next.js
+# E-commerce store in Next.js
 
 ## Tech Stack
 
