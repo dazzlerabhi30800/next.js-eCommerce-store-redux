@@ -1,23 +1,19 @@
 "use client";
-import { cart, useProductStore } from "@/store/store";
+import { useProductStore } from "@/store/store";
 import React, { useMemo } from "react";
 import styles from "@/app/styles.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { formatPriceWithDecimals } from "@/utils/FetchFuncs";
+import { formatPriceWithDecimals, getTotalPrice } from "@/utils/FetchFuncs";
 import { AiOutlineClose } from "react-icons/ai";
 
 const CartPage = () => {
   const router = useRouter();
   const { cart, productLoading, addToCart, removeFromCart, user, removeItem } =
     useProductStore((state) => state);
-  const cartPrice = useMemo(() => {
-    cart.reduce((acc: number, item: cart) => {
-      return acc + item.quantity * item.price;
-    }, 0);
-  }, [cart]);
+  const cartPrice = useMemo(() => getTotalPrice(cart), [cart]);
   if (cart.length < 1)
     return (
       <h1 className="absolute top-20 -translate-x-1/2 left-1/2 text-xl md:text-4xl">

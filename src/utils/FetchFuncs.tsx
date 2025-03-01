@@ -1,3 +1,5 @@
+import { cart } from "@/store/store";
+
 export const fetchCategory = async () => {
   const data = await fetch("https://dummyjson.com/products/categories");
   const response = await data.json();
@@ -15,8 +17,15 @@ export const formatPrice = (price: number) => {
   return format;
 };
 
+export const getTotalPrice = (cart: cart[]) => {
+  const totalPrice = cart.reduce((acc: number, item: cart) => {
+    return acc + item.quantity * item.price;
+  }, 0);
+  return totalPrice;
+};
+
 export const formatPriceWithDecimals = (price: number) => {
-  if (!price) return;
+  if (!price) return "$00.00";
   const parts = price.toString().split(".");
   let intPart = parts[0];
   let decPart = parts.length > 1 ? parts[1].slice(0, 2) : "";
