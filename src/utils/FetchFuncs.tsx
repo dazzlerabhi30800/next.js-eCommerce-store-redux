@@ -17,7 +17,7 @@ export const formatPrice = (price: number) => {
 
 export const formatPriceWithDecimals = (price: number) => {
   if (!price) return;
-  let parts = price.toString().split(".");
+  const parts = price.toString().split(".");
   let intPart = parts[0];
   let decPart = parts.length > 1 ? parts[1].slice(0, 2) : "";
 
