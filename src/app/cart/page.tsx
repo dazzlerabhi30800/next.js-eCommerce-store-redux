@@ -1,21 +1,23 @@
 "use client";
-import { useProductStore } from "@/store/store";
-import React from "react";
+import { cart, useProductStore } from "@/store/store";
+import React, { useMemo } from "react";
 import styles from "@/app/styles.module.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { formatPrice } from "@/utils/FetchFuncs";
+import { formatPriceWithDecimals } from "@/utils/FetchFuncs";
 import { AiOutlineClose } from "react-icons/ai";
 
 const CartPage = () => {
   const router = useRouter();
   const { cart, productLoading, addToCart, removeFromCart, user, removeItem } =
     useProductStore((state) => state);
-  const cartPrice = cart.reduce((acc: number, item: any) => {
-    return acc + item.quantity * item.price;
-  }, 0);
+  const cartPrice = useMemo(() => {
+    cart.reduce((acc: number, item: cart) => {
+      return acc + item.quantity * item.price;
+    }, 0);
+  }, [cart]);
   if (cart.length < 1)
     return (
       <h1 className="absolute top-20 -translate-x-1/2 left-1/2 text-xl md:text-4xl">
@@ -71,6 +73,7 @@ const CartPage = () => {
                     disabled={productLoading}
                     className="disabled:cursor-not-allowed disabled:text-gray-500"
                     onClick={() => {
+                      console.log(item);
                       if (!user) {
                         router.push("/login");
                       } else {
@@ -112,7 +115,7 @@ const CartPage = () => {
         </div>
         <div className={`${styles.flexRow} justify-between`}>
           <p>Total Price </p>
-          <p className="font-semibold">{formatPrice(cartPrice)}</p>
+          <p className="font-semibold">{formatPriceWithDecimals(cartPrice)}</p>
         </div>
       </div>
       {cart.length >= 1 && (

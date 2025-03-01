@@ -20,7 +20,7 @@ interface data {
 }
 
 const ProductComp = ({
-  data: { id, title, price, discountPercentage, thumbnail, quantity },
+  data: { id, title, price, discountPercentage, thumbnail },
   index,
 }: {
   data: data;
@@ -32,6 +32,9 @@ const ProductComp = ({
   const user = useProductStore((state) => state.user);
   const removeFromCart = useProductStore((state) => state.removeFromCart);
   const setProductAmount = useProductStore((state) => state.setProductAmount);
+  const cart = useProductStore((state) => state.cart);
+
+  let cartItem = cart.find((item) => item.id === id);
   return (
     <motion.div
       initial={{ opacity: 0, y: -300 }}
@@ -82,7 +85,7 @@ const ProductComp = ({
         >
           -
         </button>
-        <p>{quantity}</p>
+        <p>{cartItem !== undefined ? cartItem?.quantity : 0}</p>
         <button
           disabled={productLoading}
           className="disabled:cursor-not-allowed disabled:text-gray-500"

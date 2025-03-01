@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/Components/Header";
 import MenuBtn from "@/Components/MenuBtn";
 import SideBar from "@/Components/SideBar";
+import Provider from "./Provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,10 +33,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <main className="mx-6 sm:mx-9 md:mx-12 lg:mx-16 min-h-screen flex flex-col">
-          <Header />
-          <MenuBtn />
-          <SideBar />
-          {children}
+          <Provider>
+            <Header />
+            <MenuBtn />
+            <SideBar />
+            {children}
+          </Provider>
         </main>
       </body>
     </html>

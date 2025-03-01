@@ -111,7 +111,7 @@ export const useProductStore = create<ProductState>()(
             loading: false,
           });
         }
-        get().setProductAmount();
+        // get().setProductAmount();
       },
       setCategories: async () => {
         const categories = await fetchCategory();
@@ -122,8 +122,8 @@ export const useProductStore = create<ProductState>()(
         const cart = get().cart;
         const itemFind = get().cart.find((item) => item.id === id);
         const productItem = get().products.find((item) => item.id === id);
-        if (!productItem) return;
         if (!itemFind) {
+          if (!productItem) return;
           set({
             cart: [
               ...cart,
@@ -194,16 +194,9 @@ export const useProductStore = create<ProductState>()(
         }
       },
       removeItem: (id) => {
-        const products = get().products;
         const cart = get().cart;
         if (!id) return;
         set({
-          products: products.map((item) => {
-            if (item.id === id) {
-              return { ...item, quantity: 0 };
-            }
-            return item;
-          }),
           cart: cart.filter((item) => item.id !== id),
         });
       },
