@@ -59,7 +59,7 @@ const Login = () => {
       });
   };
   return (
-    <section className="flex-1 h-full flex items-center justify-center">
+    <section className="flex flex-1 min-h-[80vh] items-center justify-center">
       <div className="p-4 sm:p-7 rounded-lg bg-pink-300/70 min-w-[300px] w-full max-w-[450px] text-black flex flex-col shadow-lg gap-5">
         <form onClick={handleSubmit} className="flex flex-col gap-5">
           <div className="relative">
