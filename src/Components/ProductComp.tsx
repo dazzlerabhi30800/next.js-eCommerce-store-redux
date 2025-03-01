@@ -34,7 +34,7 @@ const ProductComp = ({
   const setProductAmount = useProductStore((state) => state.setProductAmount);
   const cart = useProductStore((state) => state.cart);
 
-  let cartItem = cart.find((item) => item.id === id);
+  const cartItem = cart.find((item) => item.id === id);
   return (
     <motion.div
       initial={{ opacity: 0, y: -300 }}
